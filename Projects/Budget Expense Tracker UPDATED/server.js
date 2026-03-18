@@ -10,7 +10,9 @@ const passport = require('./config/passport');
 const app = express();
 
 // Security headers
-app.use(helmet());
+app.use(helmet({
+    contentSecurityPolicy: false
+}));
 
 // Body parsing
 app.use(express.json());
