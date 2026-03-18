@@ -54,6 +54,19 @@ app.get('/', isAuthenticated, async (req, res, next) => {
     }
 });
 
+// API endpoint for graph data
+app.get('/api/finlines', isAuthenticated, async (req, res, next) => {
+    try {
+        const [rows] = await pool.query(
+            `SELECT DATE_FORMAT(LineDate, '%Y-%m-%d') AS LineDate, LineBalance
+             FROM finlines WHERE LineBalance IS NOT NULL ORDER BY LineDate`
+        );
+        res.json(rows);
+    } catch (err) {
+        next(err);
+    }
+});
+
 // Routes
 app.use('/', authLimiter, require('./routes/auth'));
 app.use('/', require('./routes/assets'));
