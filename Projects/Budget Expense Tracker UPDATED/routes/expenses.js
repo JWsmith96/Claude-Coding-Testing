@@ -56,7 +56,7 @@ router.post('/expensetypes/update', isAuthenticated, checkAuthLevel(2),
         } else {
             await pool.query('UPDATE expensetypes SET Name = ?, Description = ? WHERE ExpenseTypeID = ?', [editName, editDescription, hiddenExpenseTypeID]);
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -66,7 +66,7 @@ router.post('/expensetypes/update', isAuthenticated, checkAuthLevel(2),
 router.post('/expensetypes/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM expensetypes WHERE ExpenseTypeID = ?', [req.body.hiddenExpenseTypeID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -107,7 +107,7 @@ router.post('/expenses/update', isAuthenticated, checkAuthLevel(2),
                 [...fields, b.hiddenExpenseID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -117,7 +117,7 @@ router.post('/expenses/update', isAuthenticated, checkAuthLevel(2),
 router.post('/expenses/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM expenses WHERE ExpenseID = ?', [req.body.hiddenExpenseID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -218,7 +218,7 @@ router.post('/expenses/apply', isAuthenticated, checkAuthLevel(2), async (req, r
         await conn.query('UPDATE expenses SET Applied = 1 WHERE ExpenseID = ?', [b.hiddenExpenseID]);
 
         await conn.commit();
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         await conn.rollback();
         next(err);

@@ -58,7 +58,7 @@ router.post('/financecols/update', isAuthenticated, checkAuthLevel(2), async (re
                 [...fields, b.hiddenFinColID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -68,7 +68,7 @@ router.post('/financecols/update', isAuthenticated, checkAuthLevel(2), async (re
 router.post('/financecols/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM fincols WHERE FinColID = ?', [req.body.hiddenFinColID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -150,7 +150,7 @@ router.post('/financebreakdowns/update', isAuthenticated, checkAuthLevel(2), asy
         );
 
         await conn.commit();
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         await conn.rollback();
         next(err);
@@ -205,7 +205,7 @@ router.post('/financebreakdowns/delete', isAuthenticated, checkAuthLevel(2), asy
         await conn.query('DELETE FROM finbreakdowns WHERE FinBreakdownID = ?', [b.hiddenFinBreakdownID]);
 
         await conn.commit();
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         await conn.rollback();
         next(err);

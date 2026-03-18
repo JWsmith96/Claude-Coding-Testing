@@ -92,7 +92,7 @@ router.post('/editUserDetails/update', isAuthenticated, checkAuthLevel(2),
                     [req.body.username, hashedPassword, req.body.hiddenUserID]
                 );
             }
-            res.redirect(req.get('referer'));
+            res.redirect(req.get('referer') || '/');
         } catch (err) {
             next(err);
         }
@@ -103,7 +103,7 @@ router.post('/editUserDetails/update', isAuthenticated, checkAuthLevel(2),
 router.post('/editUserDetails/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM users WHERE UserID = ?', [req.body.userID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/configuration/edituserdetails');
     } catch (err) {
         next(err);
     }
@@ -126,7 +126,7 @@ router.post('/modifyscreenpermissions/update', isAuthenticated, checkAuthLevel(3
             'UPDATE users SET AuthLevel = ? WHERE UserID = ?',
             [req.body.authlevel, req.body.userID]
         );
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }

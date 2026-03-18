@@ -61,7 +61,7 @@ router.post('/assettypes/update', isAuthenticated, checkAuthLevel(2),
                 [editName, editDescription, hiddenAssetTypeID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -71,7 +71,7 @@ router.post('/assettypes/update', isAuthenticated, checkAuthLevel(2),
 router.post('/assettypes/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM assettypes WHERE AssetTypeID = ?', [req.body.hiddenAssetTypeID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -110,7 +110,7 @@ router.post('/assets/update', isAuthenticated, checkAuthLevel(2),
                 [...fields, b.hiddenAssetID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -120,7 +120,7 @@ router.post('/assets/update', isAuthenticated, checkAuthLevel(2),
 router.post('/assets/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM assets WHERE AssetID = ?', [req.body.hiddenAssetID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }

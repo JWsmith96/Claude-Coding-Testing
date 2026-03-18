@@ -57,7 +57,7 @@ router.post('/incometypes/update', isAuthenticated, checkAuthLevel(2),
         } else {
             await pool.query('UPDATE incometypes SET Name = ?, Description = ? WHERE IncomeTypeID = ?', [editName, editDescription, hiddenIncomeTypeID]);
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -67,7 +67,7 @@ router.post('/incometypes/update', isAuthenticated, checkAuthLevel(2),
 router.post('/incometypes/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM incometypes WHERE IncomeTypeID = ?', [req.body.hiddenIncomeTypeID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -110,7 +110,7 @@ router.post('/incomes/update', isAuthenticated, checkAuthLevel(2),
                 [...fields, b.hiddenIncomeID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -120,7 +120,7 @@ router.post('/incomes/update', isAuthenticated, checkAuthLevel(2),
 router.post('/incomes/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM incomes WHERE IncomeID = ?', [req.body.hiddenIncomeID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -221,7 +221,7 @@ router.post('/incomes/apply', isAuthenticated, checkAuthLevel(2), async (req, re
         await conn.query('UPDATE incomes SET Applied = 1 WHERE IncomeID = ?', [b.hiddenIncomeID]);
 
         await conn.commit();
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         await conn.rollback();
         next(err);

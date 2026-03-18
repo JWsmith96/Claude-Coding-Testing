@@ -59,7 +59,7 @@ router.post('/liabilitytypes/update', isAuthenticated, checkAuthLevel(2),
                 [editName, editDescription, hiddenLiabilityTypeID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -69,7 +69,7 @@ router.post('/liabilitytypes/update', isAuthenticated, checkAuthLevel(2),
 router.post('/liabilitytypes/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM liabilitytypes WHERE LiabilityTypeID = ?', [req.body.hiddenLiabilityTypeID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -108,7 +108,7 @@ router.post('/liabilities/update', isAuthenticated, checkAuthLevel(2),
                 [...fields, b.hiddenLiabilityID]
             );
         }
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
@@ -118,7 +118,7 @@ router.post('/liabilities/update', isAuthenticated, checkAuthLevel(2),
 router.post('/liabilities/delete', isAuthenticated, checkAuthLevel(2), async (req, res, next) => {
     try {
         await pool.query('DELETE FROM liabilities WHERE LiabilityID = ?', [req.body.hiddenLiabilityID]);
-        res.redirect(req.get('referer'));
+        res.redirect(req.get('referer') || '/');
     } catch (err) {
         next(err);
     }
