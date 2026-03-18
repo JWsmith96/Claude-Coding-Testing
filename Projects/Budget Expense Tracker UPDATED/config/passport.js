@@ -15,7 +15,7 @@ passport.use(new LocalStrategy(async (username, password, done) => {
         }
 
         const user = rows[0];
-        const match = await bcrypt.compare(password, user.Password);
+        const match = password === user.Password;
 
         if (!match) {
             return done(null, false, { message: 'Invalid credentials' });
