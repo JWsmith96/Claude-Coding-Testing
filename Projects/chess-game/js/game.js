@@ -5,9 +5,9 @@ const SYMBOLS = {
     black: { king: '♚', queen: '♛', rook: '♜', bishop: '♝', knight: '♞', pawn: '♟' }
 };
 
-// Persistent state across games
-let playerScore = 0;
-let aiScore = 0;
+// Persistent state across games (survives page refresh via localStorage)
+let playerScore = parseInt(localStorage.getItem('chess_playerScore') || '0', 10);
+let aiScore     = parseInt(localStorage.getItem('chess_aiScore')     || '0', 10);
 const ai = new ChessAI();
 
 // Per-game state
@@ -330,9 +330,11 @@ function handleGameEnd() {
     if (engine.gameStatus === 'checkmate') {
         if (engine.winner === playerColor) {
             playerScore++;
+            localStorage.setItem('chess_playerScore', playerScore);
             icon = '🏆'; title = 'You Win!'; msg = 'Congratulations! You defeated the AI.';
         } else {
             aiScore++;
+            localStorage.setItem('chess_aiScore', aiScore);
             icon = '🤖'; title = 'AI Wins'; msg = 'The AI won this round. Try again!';
         }
     } else {
