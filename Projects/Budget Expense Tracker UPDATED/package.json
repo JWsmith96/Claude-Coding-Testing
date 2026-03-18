@@ -1,0 +1,10 @@
+{
+  "name": "budget-expense-tracker",
+  "version": "1.0.0",
+  "description": "A personal budget and expense tracking application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {}
+}
