@@ -5,6 +5,7 @@ const helmet = require('helmet');
 const session = require('express-session');
 const flash = require('express-flash');
 const passport = require('passport');
+const rateLimit = require('express-rate-limit');
 
 const app = express();
 
@@ -21,6 +22,13 @@ app.use(session({
 app.use(flash());
 app.use(passport.initialize());
 app.use(passport.session());
+
+// Rate limiting on auth routes (max 20 login attempts per 15 minutes per IP)
+const authLimiter = rateLimit({
+    windowMs: 15 * 60 * 1000,
+    max: 20,
+    message: 'Too many login attempts, please try again later.'
+});
 
 // View engine
 app.set('view engine', 'ejs');
