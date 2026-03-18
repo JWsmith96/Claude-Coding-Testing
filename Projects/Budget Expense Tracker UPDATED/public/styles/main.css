@@ -1,30 +1,37 @@
 @font-face {
     font-family: 'MaatRounded';
-    src: url(../fonts/Maat_Rounded.woff2)
+    src: url(../fonts/Maat_Rounded.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'MontserratAlternates-Medium';
-    src: url(../fonts/MontserratAlternates-Medium.woff2)
+    src: url(../fonts/MontserratAlternates-Medium.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'Alta-Caption';
     src: url(../fonts/Alta_caption.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'Alta-Light';
     src: url(../fonts/Alta_light.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'Alta-Regular';
     src: url(../fonts/Alta_regular.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'Givonic-Light';
     src: url(../fonts/Givonic-Light.woff2);
+    font-display: optional;
 }
 @font-face {
     font-family: 'Givonic-Regular';
     src: url(../fonts/Givonic-Regular.woff2);
+    font-display: optional;
 }
 
 
@@ -44,7 +51,7 @@ a {
     line-height: 1.17;
     color: var(--secondaryColour);
     font-family: MaatRounded, Arial, Helvetica, sans-serif;
-    transition: all 0.3s ease 0s;
+    transition: color 0.3s ease 0s;
 }
 a:hover, a:focus {
     color: var(--hoverColour);
@@ -58,7 +65,7 @@ button {
     background-color: var(--primaryColour);
     color: var(--tertiaryColour);
     padding: 0.3vw 0.5vw 0.1vw 0.4vw;
-    transition: all 0.3s ease 0s;
+    transition: background-color 0.3s ease 0s;
 }
 button:hover, button:focus {
     background-color: var(--hoverColour);
@@ -81,6 +88,7 @@ body {
     margin: 0;
     background-color: var(--tertiaryColour);
     width: 100vw;
+    overflow-y: scroll;
 }
 body::after {  /* Used to preload images for transitions */
     position: absolute;
